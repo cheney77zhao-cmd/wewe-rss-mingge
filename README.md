@@ -4,6 +4,8 @@
 
 基于 [WeWe RSS](https://github.com/cooderl/wewe-rss) 的社区衍生版本，附自建微信读书中转。可交给 Codex、WorkBuddy 等工具协助部署；需要 Docker，不是双击安装包。
 
+[下载 1.0.0 源码包](https://github.com/cheney77zhao-cmd/wewe-rss-mingge/releases/download/v1.0.0/wewe-rss-mingge-1.0.0.zip) · [版本说明](https://github.com/cheney77zhao-cmd/wewe-rss-mingge/releases/tag/v1.0.0)
+
 ## 这版整理了什么
 
 - 保留订阅、扫码登录、列表更新和 RSS。
