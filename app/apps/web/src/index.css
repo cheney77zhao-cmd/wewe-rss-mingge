@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Phone reading: full-width articles and an on-demand subscription drawer. */
+.feeds-workspace { min-width: 0; }
+.feeds-picker, .feeds-backdrop, .feeds-sidebar-heading, .mobile-articles { display: none; }
+@media (max-width: 767px) {
+  html, body, #root { width: 100%; overflow-x: hidden; }
+  .app-shell { height: 100dvh; }
+  .app-content { height: calc(100dvh - 64px); padding-bottom: 0; }
+  .feeds-layout { flex-direction: column; min-width: 0; }
+  .feeds-picker { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 48px; padding: 10px 16px; text-align: left; border-bottom: 1px solid hsl(var(--nextui-divider)); flex-shrink: 0; font-size: 15px; }
+  .feeds-picker span { margin-left: auto; white-space: nowrap; font-size: 12px; color: hsl(var(--nextui-default-500)); }
+  .feeds-sidebar { display: none; position: fixed; z-index: 51; inset: 0 auto 0 0; height: 100dvh; width: min(84vw, 320px); background: hsl(var(--nextui-background)); overflow-y: auto; padding-top: max(16px, env(safe-area-inset-top)); box-shadow: 8px 0 24px #0002; }
+  .feeds-sidebar.is-open { display: block; }
+  .feeds-sidebar-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .feeds-sidebar-heading button { min-height: 44px; padding: 8px; }
+  .feeds-backdrop { display: block; position: fixed; inset: 0; z-index: 50; background: #0006; }
+  .feeds-workspace { flex: 1; min-height: 0; width: 100%; }
+  .feeds-toolbar { flex-wrap: wrap; gap: 8px; padding: 10px 16px; border-bottom: 1px solid hsl(var(--nextui-divider)); }
+  .feeds-toolbar h3 { display: none; }
+  .feeds-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; height: auto; gap: 4px 16px; width: 100%; }
+  .feeds-actions > :not([hidden]) ~ :not([hidden]) { margin-left: 0; }
+  .feeds-actions a { min-height: 36px; display: inline-flex; align-items: center; white-space: nowrap; font-size: 13px; }
+  .feeds-actions [role="separator"] { display: none; }
+  .feeds-updated { width: 100%; font-size: 11px; color: hsl(var(--nextui-default-500)); }
+  .feeds-articles { padding: 0 16px max(16px, env(safe-area-inset-bottom)); flex: 1; min-height: 0; overscroll-behavior-y: contain; }
+  .desktop-articles { display: none; }
+  .mobile-articles { display: block; }
+  .mobile-article { padding: 16px 0; border-bottom: 1px solid hsl(var(--nextui-divider)); }
+  .mobile-article > a { display: block; font-size: 16px; line-height: 1.6; overflow-wrap: anywhere; color: hsl(var(--nextui-foreground)); }
+  .mobile-article > a:visited { color: hsl(var(--nextui-default-500)); }
+  .mobile-article > a span { font-size: 12px; }
+  .mobile-article time { display: block; margin-top: 6px; font-size: 12px; line-height: 1.5; color: hsl(var(--nextui-default-500)); }
+  .mobile-load-more { width: 100%; margin-top: 16px; min-height: 44px; }
+  .mobile-list-status { padding: 40px 0; text-align: center; color: hsl(var(--nextui-default-500)); }
+}

@@ -1,0 +1,21 @@
+# Connect only the relay to an existing application's actual network.
+services:
+  wewe-platform-local:
+    build: ./relay
+    restart: unless-stopped
+    environment:
+      PLATFORM_SECRET: ${PLATFORM_SECRET:?Run init_env.py first}
+      PLATFORM_DB: /data/platform.db
+      PORT: "8090"
+      MIN_REQUEST_INTERVAL: "3"
+      RISK_BLOCK_SECONDS: "21600"
+    volumes:
+      - ./data/platform:/data
+    expose:
+      - "8090"
+    networks:
+      - existing
+networks:
+  existing:
+    external: true
+    name: ${WEWE_NETWORK:?Set the existing Docker network name}

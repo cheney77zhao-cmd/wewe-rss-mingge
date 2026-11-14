@@ -1,0 +1,33 @@
+name: Verify release
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: pip install -r relay/requirements.txt
+      - run: python scripts/test_relay.py
+      - run: node app/tests/article-url-regression.cjs
+      - run: python scripts/check_public.py
+      - run: python init_env.py
+      - run: docker compose config --quiet
+      - run: docker compose build
+      - run: docker compose up -d --wait --wait-timeout 120
+      - name: Check startup
+        run: |
+          curl --retry 15 --retry-delay 3 --retry-connrefused -fsSL http://127.0.0.1:8088/dash -o /tmp/dashboard.html
+          grep -q '<html' /tmp/dashboard.html
+      - if: always()
+        run: docker compose down
