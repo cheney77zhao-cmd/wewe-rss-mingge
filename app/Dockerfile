@@ -18,6 +18,7 @@ WORKDIR /app
 EXPOSE 4000
 ENV NODE_ENV=production HOST="0.0.0.0" SERVER_ORIGIN_URL="" MAX_REQUEST_PER_MINUTE=60 AUTH_CODE="" DATABASE_URL="file:../data/wewe-rss.db" DATABASE_TYPE="sqlite"
 RUN chmod +x ./docker-bootstrap.sh
+HEALTHCHECK --interval=5s --timeout=3s --start-period=30s --retries=12 CMD node -e "fetch('http://127.0.0.1:4000/dash').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 CMD ["./docker-bootstrap.sh"]
 FROM base AS app
 COPY --from=build /app /app
@@ -25,4 +26,5 @@ WORKDIR /app
 EXPOSE 4000
 ENV NODE_ENV=production HOST="0.0.0.0" SERVER_ORIGIN_URL="" MAX_REQUEST_PER_MINUTE=60 AUTH_CODE="" DATABASE_URL=""
 RUN chmod +x ./docker-bootstrap.sh
+HEALTHCHECK --interval=5s --timeout=3s --start-period=30s --retries=12 CMD node -e "fetch('http://127.0.0.1:4000/dash').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 CMD ["./docker-bootstrap.sh"]
